@@ -16,5 +16,10 @@ namespace CoreProject.Controllers
             var values = _blogManager.GetListWithCategory();
             return View(values);
         }
+
+        public IActionResult BlogDetails(int id)
+        {
+            return View();
+        }
     }
 }
