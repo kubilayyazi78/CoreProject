@@ -11,9 +11,9 @@ namespace CoreProject.ViewComponents.Comment
     public class CommentListByBlog:ViewComponent
     {
         private CommentManager _commentManager = new CommentManager(new EfCommentRepository());
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(int id)
         {
-            var values = _commentManager.GetList(3);
+            var values = _commentManager.GetList(id);
             return View(values);
         }
     }
