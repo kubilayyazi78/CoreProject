@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 
 namespace CoreProject.Controllers
 {
     public class CommentController : Controller
     {
+        private CommentManager commentManager = new CommentManager(new EfCommentRepository());
         public IActionResult Index()
         {
             return View();
@@ -18,9 +21,10 @@ namespace CoreProject.Controllers
             return PartialView();
         }
 
-        public PartialViewResult CommentListByBlog()
+        public PartialViewResult CommentListByBlog(int id)
         {
-            return PartialView();
+            var values = commentManager.GetList(id);
+            return PartialView(values);
         }
     }
 }
