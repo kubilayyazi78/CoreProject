@@ -26,7 +26,7 @@ namespace CoreProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddSession();
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -54,6 +54,8 @@ namespace CoreProject
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
