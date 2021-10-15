@@ -27,7 +27,7 @@ namespace CoreProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSession();
+            
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -39,7 +39,7 @@ namespace CoreProject
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
                     {
-                        x.LoginPath = "/Login/Index"; 
+                        x.LoginPath = "/Login/Index";
                     });
         }
 
@@ -62,8 +62,8 @@ namespace CoreProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();
-
+        
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
