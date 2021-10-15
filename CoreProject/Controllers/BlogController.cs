@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreProject.Controllers
 {
+    [AllowAnonymous]
     public class BlogController : Controller
     {
         private BlogManager _blogManager = new BlogManager(new EfBlogRepository());
