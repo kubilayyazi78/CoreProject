@@ -11,7 +11,7 @@ namespace CoreProject.Controllers
     public class WriterController : Controller
     {
 
-       
+
         public IActionResult Index()
         {
             return View();
@@ -21,6 +21,11 @@ namespace CoreProject.Controllers
         {
             return View();
         }
-     
+        [AllowAnonymous]
+        public IActionResult Test()
+        {
+            return View();
+        }
+
     }
 }
