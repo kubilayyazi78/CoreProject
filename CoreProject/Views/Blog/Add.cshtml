@@ -20,7 +20,7 @@
     @Html.TextBoxFor(x => x.ThumbnailImage, new { @class = "form-control" })
     <br />
     @Html.Label("Kategori")
-    @Html.TextBoxFor(x => x.CategoryId, new { @class = "form-control" })
+    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.Category, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.CategoryId)
     <br />
     @Html.Label("Blog İçeriği")

@@ -9,6 +9,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CoreProject.Controllers
 {
@@ -37,6 +38,14 @@ namespace CoreProject.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
+            List<SelectListItem> categoryValues = (from x in categoryManager.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.Name,
+                                                       Value = x.Id.ToString()
+                                                   }).ToList();
+            ViewBag.Category = categoryValues;
             return View();
         }
         [HttpPost]
