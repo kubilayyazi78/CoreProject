@@ -25,5 +25,11 @@ namespace CoreProject.Controllers
             var values = _blogManager.GetBlogById(id);
             return View(values);
         }
+
+        public IActionResult BlogListByWriter()
+        {
+            var values = _blogManager.GetBlogListByWriter(1);
+            return View(values);
+        }
     }
 }
