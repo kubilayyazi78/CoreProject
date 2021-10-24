@@ -26,6 +26,16 @@ namespace CoreProject.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public PartialViewResult NavbarPartial()
+        {
+            return PartialView();
+        }
+        [AllowAnonymous]
+        public PartialViewResult FooterPartial()
+        {
+            return PartialView();
+        }
 
     }
 }
