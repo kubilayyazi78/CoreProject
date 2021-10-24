@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
+using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CoreProject.Controllers
@@ -30,6 +33,34 @@ namespace CoreProject.Controllers
         {
             var values = _blogManager.GetBlogListByWriter(1);
             return View(values);
+        }
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(Blog blog)
+        {
+            BlogValidator blogValidator = new BlogValidator();
+            ValidationResult result = blogValidator.Validate(blog);
+            if (result.IsValid)
+            {
+                blog.Status = true;
+                blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                blog.WriterId = 1;
+                _blogManager.Add(blog);
+                return RedirectToAction("BlogListByWriter", "Blog");
+
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }
