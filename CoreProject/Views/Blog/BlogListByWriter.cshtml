@@ -22,8 +22,8 @@
         <tr>
             <th>@item.Id</th>
             <td>@item.Title</td>
-            <td>@item.CreateDate</td>
-            <td>@item.CategoryId</td>
+            <td>@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</td>
+            <td>@item.Category.Name</td>
             <td>@item.Status</td>
             <td><a href="#" class="btn btn-danger">Sil</a></td>
             <td><a href="#" class="btn btn-warning">Düzenle</a></td>
