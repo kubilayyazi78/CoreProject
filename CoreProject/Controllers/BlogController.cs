@@ -71,5 +71,13 @@ namespace CoreProject.Controllers
             }
             return View();
         }
+
+        public IActionResult DeleteBlog(int id)
+        {
+            var blogValue = _blogManager.GetById(id);
+            _blogManager.Delete(blogValue);
+
+            return RedirectToAction("BlogListByWriter");
+        }
     }
 }
