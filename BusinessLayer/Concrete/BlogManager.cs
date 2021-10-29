@@ -30,7 +30,7 @@ namespace BusinessLayer.Concrete
 
         public void Update(Blog blog)
         {
-            throw new NotImplementedException();
+            _blogDal.Update(blog);
         }
 
         public List<Blog> GetList()
