@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreProject.Models;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -70,6 +72,38 @@ namespace CoreProject.Controllers
                 return View();
             }
 
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Add(AddProfileImage addProfileImage)
+        {
+            Writer writer = new Writer();
+
+            if (addProfileImage.Image != null)
+            {
+                var extension = Path.GetExtension(addProfileImage.Image.FileName);
+                var newImageName = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles/", newImageName);
+                var stream = new FileStream(location, FileMode.Create);
+                addProfileImage.Image.CopyTo(stream);
+                writer.Image = newImageName;
+            }
+
+            writer.Mail = addProfileImage.Mail;
+            writer.Name = addProfileImage.Name;
+            writer.Password = addProfileImage.Password;
+            writer.Status = true;
+            writer.About = addProfileImage.About;
+
+            _writerManager.Add(writer);
+            return RedirectToAction("Index", "Dashboard");
         }
 
 
