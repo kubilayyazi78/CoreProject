@@ -34,7 +34,7 @@ namespace BusinessLayer.Concrete
 
         public List<Notification> GetList()
         {
-            throw new NotImplementedException();
+            return _notificationDal.GetListAll();
         }
 
         public Notification GetById(int id)
