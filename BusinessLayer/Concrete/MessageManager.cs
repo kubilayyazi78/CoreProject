@@ -43,7 +43,7 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
-        public List<Message> GetListByWriter(string mail)
+        public List<Message> GetInboxListByWriter(string mail)
         {
             return _messageDal.GetListAll(x=>x.Receiver==mail);
         }
