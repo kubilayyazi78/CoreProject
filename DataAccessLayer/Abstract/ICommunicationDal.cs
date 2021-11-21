@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using EntityLayer.Concrete;
 
-namespace BusinessLayer.Abstract
+namespace DataAccessLayer.Abstract
 {
-    public interface IMessageService : IGenericService<Message>
+    public interface ICommunicationDal : IGenericDal<Communication>
     {
-        List<Message> GetInboxListByWriter(string mail);
     }
 }

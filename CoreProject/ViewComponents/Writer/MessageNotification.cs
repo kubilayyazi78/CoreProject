@@ -10,11 +10,10 @@ namespace CoreProject.ViewComponents.Writer
 {
     public class MessageNotification : ViewComponent
     {
-        private MessageManager _messageManager = new MessageManager(new EfMessageRepository());
+        private CommunicationManager _communicationManager = new CommunicationManager(new EfCommunicationRepository());
         public IViewComponentResult Invoke()
         {
-            string mail = "belo@hot.com";
-            var values = _messageManager.GetInboxListByWriter(mail);
+            var values = _communicationManager.GetInboxListByWriter(1);
             return View(values);
         }
     }
