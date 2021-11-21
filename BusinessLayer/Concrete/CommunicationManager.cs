@@ -40,7 +40,7 @@ namespace BusinessLayer.Concrete
 
         public Communication GetById(int id)
         {
-            throw new NotImplementedException();
+            return _communicationDal.GetById(id);
         }
 
         public List<Communication> GetInboxListByWriter(int id)
