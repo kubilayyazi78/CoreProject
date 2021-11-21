@@ -9,5 +9,6 @@ namespace DataAccessLayer.Abstract
 {
     public interface ICommunicationDal : IGenericDal<Communication>
     {
+        List<Communication> GetListWithMessageByWriter(int id);
     }
 }
