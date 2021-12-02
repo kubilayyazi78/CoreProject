@@ -12,5 +12,10 @@ namespace CoreProject.Controllers
         {
             return View();
         }
+
+        public PartialViewResult NavbarPartial()
+        {
+            return PartialView();
+        }
     }
 }
