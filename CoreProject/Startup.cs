@@ -27,7 +27,7 @@ namespace CoreProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -62,7 +62,7 @@ namespace CoreProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-        
+
             app.UseAuthentication();
             app.UseRouting();
 
@@ -70,6 +70,10 @@ namespace CoreProject
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
