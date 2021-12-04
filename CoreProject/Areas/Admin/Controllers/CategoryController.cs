@@ -46,5 +46,12 @@ namespace CoreProject.Areas.Admin.Controllers
             }
             return View();
         }
+
+        public IActionResult Delete(int id)
+        {
+            var value = _categoryManager.GetById(id);
+            _categoryManager.Delete(value);
+            return RedirectToAction("Index");
+        }
     }
 }
