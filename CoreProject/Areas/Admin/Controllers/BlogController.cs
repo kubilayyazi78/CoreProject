@@ -9,6 +9,7 @@ using CoreProject.Areas.Admin.Models;
 
 namespace CoreProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class BlogController : Controller
     {
         public IActionResult ExportStaticExcelBlogList()
@@ -32,8 +33,8 @@ namespace CoreProject.Areas.Admin.Controllers
                 {
                     workBook.SaveAs(stream);
                     var content = stream.ToArray();
-                    return File(content, "application / vnd.openxmlformats - officedocument.spreadsheetml.sheet",
-                        "Calisma1.xlx");
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Calisma1.xlsx");
                 }
             }
 
@@ -49,6 +50,11 @@ namespace CoreProject.Areas.Admin.Controllers
 
             };
             return blogModels;
+        }
+
+        public IActionResult BlogListExcel()
+        {
+            return View();
         }
     }
 }
