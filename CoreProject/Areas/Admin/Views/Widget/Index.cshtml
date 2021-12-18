@@ -7,61 +7,9 @@
 <!DOCTYPE html>
 <html>
 <body>
+
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="widget style1">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <i class="fa fa-trophy fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> Today income </span>
-                            <h2 class="font-bold">$ 4,232</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-cloud fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> Today degrees </span>
-                            <h2 class="font-bold">26'C</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="widget style1 lazur-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-envelope-o fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> New messages </span>
-                            <h2 class="font-bold">260</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="widget style1 yellow-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-music fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> New albums </span>
-                            <h2 class="font-bold">12</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("Statistic")
         <div class="row">
             <div class="col-lg-6">
                 <div class="widget navy-bg no-padding">
@@ -536,7 +484,7 @@
         </div>
 
     </div>
-    
+
     <!-- Mainly scripts -->
     <script src="~/inspinia-gh-pages/js/jquery-3.1.1.min.js"></script>
     <script src="~/inspinia-gh-pages/js/popper.min.js"></script>
@@ -574,102 +522,114 @@
                 { label: "Data 1", data: d1, color: '#17a084' },
                 { label: "Data 2", data: d2, color: '#127e68' }
             ];
-            $.plot($("#flot-chart1"), data1, {
-                xaxis: {
-                    tickDecimals: 0
-                },
-                series: {
-                    lines: {
-                        show: true,
-                        fill: true,
-                        fillColor: {
-                            colors: [{
-                                opacity: 1
-                            }, {
-                                opacity: 1
-                            }]
+            $.plot($("#flot-chart1"),
+                data1,
+                {
+                    xaxis: {
+                        tickDecimals: 0
+                    },
+                    series: {
+                        lines: {
+                            show: true,
+                            fill: true,
+                            fillColor: {
+                                colors: [
+                                    {
+                                        opacity: 1
+                                    }, {
+                                        opacity: 1
+                                    }
+                                ]
+                            }
+                        },
+                        points: {
+                            width: 0.1,
+                            show: false
                         }
                     },
-                    points: {
-                        width: 0.1,
+                    grid: {
+                        show: false,
+                        borderWidth: 0
+                    },
+                    legend: {
                         show: false
                     }
-                },
-                grid: {
-                    show: false,
-                    borderWidth: 0
-                },
-                legend: {
-                    show: false
-                }
-            });
+                });
 
             var data2 = [
                 { label: "Data 1", data: d1, color: '#19a0a1' }
             ];
-            $.plot($("#flot-chart2"), data2, {
-                xaxis: {
-                    tickDecimals: 0
-                },
-                series: {
-                    lines: {
-                        show: true,
-                        fill: true,
-                        fillColor: {
-                            colors: [{
-                                opacity: 1
-                            }, {
-                                opacity: 1
-                            }]
+            $.plot($("#flot-chart2"),
+                data2,
+                {
+                    xaxis: {
+                        tickDecimals: 0
+                    },
+                    series: {
+                        lines: {
+                            show: true,
+                            fill: true,
+                            fillColor: {
+                                colors: [
+                                    {
+                                        opacity: 1
+                                    }, {
+                                        opacity: 1
+                                    }
+                                ]
+                            }
+                        },
+                        points: {
+                            width: 0.1,
+                            show: false
                         }
                     },
-                    points: {
-                        width: 0.1,
+                    grid: {
+                        show: false,
+                        borderWidth: 0
+                    },
+                    legend: {
                         show: false
                     }
-                },
-                grid: {
-                    show: false,
-                    borderWidth: 0
-                },
-                legend: {
-                    show: false
-                }
-            });
+                });
 
             var data3 = [
                 { label: "Data 1", data: d1, color: '#fbbe7b' },
                 { label: "Data 2", data: d2, color: '#f8ac59' }
             ];
-            $.plot($("#flot-chart3"), data3, {
-                xaxis: {
-                    tickDecimals: 0
-                },
-                series: {
-                    lines: {
-                        show: true,
-                        fill: true,
-                        fillColor: {
-                            colors: [{
-                                opacity: 1
-                            }, {
-                                opacity: 1
-                            }]
+            $.plot($("#flot-chart3"),
+                data3,
+                {
+                    xaxis: {
+                        tickDecimals: 0
+                    },
+                    series: {
+                        lines: {
+                            show: true,
+                            fill: true,
+                            fillColor: {
+                                colors: [
+                                    {
+                                        opacity: 1
+                                    }, {
+                                        opacity: 1
+                                    }
+                                ]
+                            }
+                        },
+                        points: {
+                            width: 0.1,
+                            show: false
                         }
                     },
-                    points: {
-                        width: 0.1,
+                    grid: {
+                        show: false,
+                        borderWidth: 0
+                    },
+                    legend: {
                         show: false
                     }
-                },
-                grid: {
-                    show: false,
-                    borderWidth: 0
-                },
-                legend: {
-                    show: false
-                }
-            });
+                });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
@@ -710,11 +670,13 @@
                     }
                 },
                 series: {
-                    regions: [{
-                        values: mapData,
-                        scale: ["#1ab394", "#22d6b1"],
-                        normalizeFunction: 'polynomial'
-                    }]
+                    regions: [
+                        {
+                            values: mapData,
+                            scale: ["#1ab394", "#22d6b1"],
+                            normalizeFunction: 'polynomial'
+                        }
+                    ]
                 }
             });
         });
