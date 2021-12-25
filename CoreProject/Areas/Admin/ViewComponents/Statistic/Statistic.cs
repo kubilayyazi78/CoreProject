@@ -14,6 +14,7 @@ namespace CoreProject.Areas.Admin.ViewComponents.Statistic
     {
         private BlogManager _blogManager = new BlogManager(new EfBlogRepository());
         private Context _context = new Context();
+        private double temp = 273.15;
         public IViewComponentResult Invoke()
         {
             ViewBag.BlogCount = _blogManager.GetList().Count();
@@ -24,7 +25,8 @@ namespace CoreProject.Areas.Admin.ViewComponents.Statistic
             string connection =
                 "http://api.openweathermap.org/data/2.5/weather?q=istanbul&mode=xml&lang=tr%units=metric&appid=" + api;
             XDocument document=XDocument.Load(connection);
-            ViewBag.temp = document.Descendants("temperature").ElementAt(0).Attribute("value").Value;
+            var kelvin = document.Descendants("temperature").ElementAt(0).Attribute("value").Value;
+            ViewBag.temp =  Math.Round(Convert.ToDouble(kelvin.Replace('.', ','))-temp,2);
             return View();
         }
     }
