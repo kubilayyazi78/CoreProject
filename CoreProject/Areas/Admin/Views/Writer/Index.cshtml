@@ -47,7 +47,18 @@
 
         $("#btnGetById").click(x => {
             let id = $("#writerId").val();
-            console.log(id);
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/Admin/Writer/GetWriterById/",
+                data: { writerId: id },
+                success: function (func) {
+                    let writer = jQuery.parseJSON(func);
+                    console.log(writer);
+                }
+            });
+
         });
 
     </script>
