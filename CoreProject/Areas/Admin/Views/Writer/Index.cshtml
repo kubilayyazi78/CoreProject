@@ -7,8 +7,8 @@
 <h1>Yazar Ajax İşlemleri</h1>
 <br />
 <button type="button" id="btnGetList" class="btn btn-outline-primary">Yazar Listesi</button>
-<br/>
-<br/>
+<br />
+<br />
 <div id="writerList">
     Yazarlar Gelecek
 </div>
@@ -16,14 +16,22 @@
 @section scripts
 {
     <script>
-        $("#btnGetList").click(function() {
+        $("#btnGetList").click(function () {
             $.ajax({
                 contentType: "application/json",
                 dataType: "json",
                 type: "Get",
                 url: "/Admin/Writer/WriterList/",
-                success: function(func) {
-                    console.log(func);
+                success: function (func) {
+                    let w = jQuery.parseJSON(func);
+                    console.log(w);
+                    let tableHtml = "<table class=table table-bordered> <tr> <th>Yazar ID</th> <th> Yazar Adı </th> </tr>";
+                    $.each(w,
+                        (index, value) => {
+                            tableHtml += `<tr><td>${value.Id}</td> <td>${value.Name} </td> </tr>`
+                        });
+                    tableHtml += "</table>";
+                    $("#writerList").html(tableHtml);
                 }
             });
         });
