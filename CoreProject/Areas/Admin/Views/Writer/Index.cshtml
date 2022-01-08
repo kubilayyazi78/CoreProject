@@ -9,6 +9,7 @@
 <button type="button" id="btnGetList" class="btn btn-outline-primary">Yazar Listesi</button>
 <button type="button" id="btnGetById" class="btn btn-outline-success">Yazar Getir</button>
 <button type="button" id="btnAddWriter" class="btn btn-outline-info">Yazar Ekle</button>
+<button type="button" id="btnDeleteWriter" class="btn btn-outline-danger">Yazar Sil</button>
 <br />
 <br />
 <div id="writerList">
@@ -28,6 +29,12 @@
     <br />
     <input type="text" class="form-control" id="txtWriterName" placeholder="Yazar Adı" />
     <br />
+</div>
+
+<br/>
+
+<div>
+    <input type="text" class="form-control" id="txtId" placeholder="Yazar ID" />
 </div>
 
 @section scripts
@@ -86,6 +93,20 @@
                 success: function(func) {
                     let result = jQuery.parseJSON(func);
                     alert("Yazar Eklendi");
+                }
+            });
+        });
+
+        $("#btnDeleteWriter").click(x => {
+
+            let id = $("#txtId").val();
+
+            $.ajax({
+                url: "/Admin/Writer/Delete/" + id,
+                type: "post",
+                dataType: "json",
+                success: function(func) {
+                    alert("Silme işlemi gerçekleştirildi...");
                 }
             });
         });

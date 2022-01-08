@@ -37,6 +37,13 @@ namespace CoreProject.Areas.Admin.Controllers
             return Json(jsonWriters);
         }
 
+        public IActionResult Delete(int id)
+        {
+            var writer = Writers.FirstOrDefault(x => x.Id == id);
+            Writers.Remove(writer);
+            return Json(writer);
+        }
+
         public static List<WriterModel> Writers = new List<WriterModel>
         {
             new WriterModel
