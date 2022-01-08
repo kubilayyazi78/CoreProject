@@ -21,7 +21,6 @@ namespace CoreProject.Areas.Admin.Controllers
             var jsonWriters = JsonConvert.SerializeObject(Writers);
             return Json(jsonWriters);
         }
-
         public IActionResult GetWriterById(int writerId)
         {
             var findWriter = Writers.FirstOrDefault(x => x.Id == writerId);
@@ -29,7 +28,16 @@ namespace CoreProject.Areas.Admin.Controllers
             return Json(jsonWriters);
         }
 
-        public List<WriterModel> Writers = new List<WriterModel>
+        [HttpPost]
+        public IActionResult Add(WriterModel writerModel)
+        {
+            Writers.Add(writerModel);
+            var jsonWriters = JsonConvert.SerializeObject(writerModel);
+
+            return Json(jsonWriters);
+        }
+
+        public static List<WriterModel> Writers = new List<WriterModel>
         {
             new WriterModel
             {
