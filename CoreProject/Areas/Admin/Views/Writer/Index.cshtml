@@ -15,7 +15,7 @@
 </div>
 <br />
 <div id="writerGet">
-    Buraya Bir Yazar Gelecek
+  
 </div>
 <br />
 <div>
@@ -25,13 +25,13 @@
 @section scripts
 {
     <script>
-        $("#btnGetList").click(function () {
+        $("#btnGetList").click(function() {
             $.ajax({
                 contentType: "application/json",
                 dataType: "json",
                 type: "Get",
                 url: "/Admin/Writer/WriterList/",
-                success: function (func) {
+                success: function(func) {
                     let w = jQuery.parseJSON(func);
                     console.log(w);
                     let tableHtml = "<table class=table table-bordered> <tr> <th>Yazar ID</th> <th> Yazar Adı </th> </tr>";
@@ -53,9 +53,14 @@
                 type: "Get",
                 url: "/Admin/Writer/GetWriterById/",
                 data: { writerId: id },
-                success: function (func) {
+                success: function(func) {
                     let writer = jQuery.parseJSON(func);
                     console.log(writer);
+
+                    let getValue = `<table class=table table-bordered> <tr><th>Yazar Id </th> <th> Yazar Adı </th> </tr> <tr> <td>${writer.Id} </td> <td>${writer.Name} </td> </tr> </table>`;
+
+                    $("#writerGet").html(getValue);
+
                 }
             });
 
