@@ -37,6 +37,14 @@ namespace CoreProject.Areas.Admin.Controllers
             return Json(jsonWriters);
         }
 
+        public IActionResult Update(WriterModel writerModel)
+        {
+            var writer = Writers.FirstOrDefault(x => x.Id == writerModel.Id);
+            writer.Name = writerModel.Name;
+            var jsonWriter = JsonConvert.SerializeObject(writerModel);
+            return Json(jsonWriter);
+        }
+
         public IActionResult Delete(int id)
         {
             var writer = Writers.FirstOrDefault(x => x.Id == id);

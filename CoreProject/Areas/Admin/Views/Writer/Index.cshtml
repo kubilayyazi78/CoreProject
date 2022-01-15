@@ -10,6 +10,7 @@
 <button type="button" id="btnGetById" class="btn btn-outline-success">Yazar Getir</button>
 <button type="button" id="btnAddWriter" class="btn btn-outline-info">Yazar Ekle</button>
 <button type="button" id="btnDeleteWriter" class="btn btn-outline-danger">Yazar Sil</button>
+<button type="button" id="btnUpdateWriter" class="btn btn-outline-danger">Yazar Güncelle</button>
 <br />
 <br />
 <div id="writerList">
@@ -17,13 +18,13 @@
 </div>
 <br />
 <div id="writerGet">
-  
+
 </div>
 <br />
 <div>
     <input type="text" id="writerId" placeholder="Yazar Id Değeri Giriniz..." class="form-control" />
 </div>
-<br/>
+<br />
 <div>
     <input type="text" class="form-control" id="txtWriterId" placeholder="Yazar ID" />
     <br />
@@ -31,22 +32,25 @@
     <br />
 </div>
 
-<br/>
+<br />
 
 <div>
     <input type="text" class="form-control" id="txtId" placeholder="Yazar ID" />
 </div>
+<br />
+<input type="text" id="txtUpdateId" class="form-control" placeholder="Güncellenecek ID" />
+<input type="text" id="txtUpdateName" class="form-control" placeholder="Güncellenecek İsim" />
 
 @section scripts
 {
     <script>
-        $("#btnGetList").click(function() {
+        $("#btnGetList").click(function () {
             $.ajax({
                 contentType: "application/json",
                 dataType: "json",
                 type: "Get",
                 url: "/Admin/Writer/WriterList/",
-                success: function(func) {
+                success: function (func) {
                     let w = jQuery.parseJSON(func);
                     console.log(w);
                     let tableHtml = "<table class=table table-bordered> <tr> <th>Yazar ID</th> <th> Yazar Adı </th> </tr>";
@@ -68,7 +72,7 @@
                 type: "Get",
                 url: "/Admin/Writer/GetWriterById/",
                 data: { writerId: id },
-                success: function(func) {
+                success: function (func) {
                     let writer = jQuery.parseJSON(func);
                     console.log(writer);
 
@@ -81,7 +85,7 @@
 
         });
 
-        $("#btnAddWriter").click(function() {
+        $("#btnAddWriter").click(function () {
             let writer = {
                 Id: $("#txtWriterId").val(),
                 Name: $("#txtWriterName").val()
@@ -90,7 +94,7 @@
                 type: "post",
                 url: "/Admin/Writer/Add/",
                 data: writer,
-                success: function(func) {
+                success: function (func) {
                     let result = jQuery.parseJSON(func);
                     alert("Yazar Eklendi");
                 }
@@ -105,8 +109,26 @@
                 url: "/Admin/Writer/Delete/" + id,
                 type: "post",
                 dataType: "json",
-                success: function(func) {
+                success: function (func) {
                     alert("Silme işlemi gerçekleştirildi...");
+                }
+            });
+        });
+
+
+        $("#btnUpdateWriter").click(function () {
+
+            let writer = {
+                Id: $("#txtUpdateId").val(),
+                Name: $("#txtUpdateName").val()
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/Admin/Writer/Update/",
+                data: writer,
+                success: function (func) {
+                    alert("Güncelleme Yapıldı");
                 }
             });
         });
