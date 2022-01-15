@@ -17,6 +17,12 @@ namespace BlogAPI.Controllers
         {
             using var context = new Context();
             var values = context.Employees.ToList();
+            return Ok(values);
+        }
+
+        [HttpPost]
+        public IActionResult Add()
+        {
             return Ok();
         }
     }
