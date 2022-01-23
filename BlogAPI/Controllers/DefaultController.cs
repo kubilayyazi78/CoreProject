@@ -28,5 +28,18 @@ namespace BlogAPI.Controllers
             context.SaveChanges();
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            using var context = new Context();
+            var employee = context.Employees.Find(id);
+            if (employee ==null)
+            {
+                return NotFound();
+            }
+
+            return Ok(employee);
+        }
     }
 }
