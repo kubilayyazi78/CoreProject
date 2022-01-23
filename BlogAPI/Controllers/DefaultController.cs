@@ -21,8 +21,11 @@ namespace BlogAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add()
+        public IActionResult Add(Employee employee)
         {
+            using var context = new Context();
+            context.Add(employee);
+            context.SaveChanges();
             return Ok();
         }
     }
