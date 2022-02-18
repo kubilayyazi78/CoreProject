@@ -1,0 +1,19 @@
+﻿@using CoreProject.Controllers
+@model EmployeeClass
+@{
+    ViewData["Title"] = "EditEmployee";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Api ile personel güncelleme sayfası</h1>
+
+<form method="post">
+    <label>ID</label>
+    @Html.TextBoxFor(x => x.Id, new { @class = "form-control" })
+    <br />
+    <label>Personel</label>
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-outline-success"> Güncelle </button>
+</form>
+

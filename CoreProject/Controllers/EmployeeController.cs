@@ -39,6 +39,47 @@ namespace CoreProject.Controllers
 
             return View(employeeClass);
         }
+        [HttpGet]
+        public async Task<IActionResult> EditEmployee(int id)
+        {
+            var httpClient = new HttpClient();
+            var responseMessage = await httpClient.GetAsync("https://localhost:44364/api/Default/" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonEmployee = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<EmployeeClass>(jsonEmployee);
+                return View(values);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEmployee(EmployeeClass employeeClass)
+        {
+            var httpClient = new HttpClient();
+            var jsonEmployee = JsonConvert.SerializeObject(employeeClass);
+            var content = new StringContent(jsonEmployee, Encoding.UTF8, "application/json");
+            var responseMessage = await httpClient.PutAsync("https://localhost:44364/api/Default", content);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(employeeClass);
+        }
+
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var httpClient = new HttpClient();
+            var responseMessage = await httpClient.DeleteAsync("https://localhost:44364/api/Default/" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
 
     }
 
