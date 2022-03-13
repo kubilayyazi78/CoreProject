@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreProject.Controllers
 {
+    [AllowAnonymous]
     public class CommentController : Controller
     {
         private CommentManager commentManager = new CommentManager(new EfCommentRepository());

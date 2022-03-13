@@ -20,12 +20,13 @@ namespace CoreProject.Controllers
         private BlogManager _blogManager = new BlogManager(new EfBlogRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         private Context _context = new Context();
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = _blogManager.GetListWithCategory();
             return View(values);
         }
-
+        [AllowAnonymous]
         public IActionResult BlogReadAll(int id)
         {
             ViewBag.Id = id;

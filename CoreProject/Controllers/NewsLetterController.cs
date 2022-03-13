@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreProject.Controllers
 {
+    [AllowAnonymous]
     public class NewsLetterController : Controller
     {
         private NewsLetterManager newsLetterManager = new NewsLetterManager(new EfNewsLetterRepository());
@@ -18,7 +20,7 @@ namespace CoreProject.Controllers
             return PartialView();
         }
         [HttpPost]
-        public PartialViewResult SubscribeMail(NewsLetter newsLetter)
+        public IActionResult SubscribeMail(NewsLetter newsLetter)
         {
             newsLetter.Status = true;
             newsLetterManager.Add(newsLetter);
