@@ -12,6 +12,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoreProject.Controllers
 {
@@ -19,7 +20,15 @@ namespace CoreProject.Controllers
     public class WriterController : Controller
     {
         private WriterManager _writerManager = new WriterManager(new EfWriterRepository());
+        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager userManager = new UserManager(new EfUserRepository());
         private Context _context = new Context();
+
+        public WriterController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [Authorize]
         public IActionResult Index()
         {
@@ -56,9 +65,10 @@ namespace CoreProject.Controllers
         {
             var userName = User.Identity.Name;
             var userMail = _context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            var writerId = _context.Writers.Where(x => x.Mail == userMail).Select(y => y.Id).FirstOrDefault();
-            var writerValue = _writerManager.GetById(writerId);
-            return View(writerValue);
+            var id = _context.Users.Where(x => x.Email == userMail).Select(y => y.Id).FirstOrDefault();
+            var values = userManager.GetById(id);
+            return View(values);
+
         }
 
 
