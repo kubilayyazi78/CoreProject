@@ -30,7 +30,7 @@ namespace BusinessLayer.Concrete
 
         public void Update(AppUser entity)
         {
-            throw new NotImplementedException();
+           _userDal.Update(entity);
         }
 
         public List<AppUser> GetList()

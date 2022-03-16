@@ -61,36 +61,26 @@ namespace CoreProject.Controllers
 
 
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
-            var userName = User.Identity.Name;
-            var userMail = _context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            var id = _context.Users.Where(x => x.Email == userMail).Select(y => y.Id).FirstOrDefault();
-            var values = userManager.GetById(id);
-            return View(values);
-
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserUpdateViewModel model = new UserUpdateViewModel();
+            model.Mail = values.Email;
+            model.NameSurname = values.NameSurname;
+            model.ImageUrl = values.ImageUrl;
+            return View(model);
         }
 
 
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer writer)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
-            WriterValidator writerValidator = new WriterValidator();
-            ValidationResult validationResult = writerValidator.Validate(writer);
-            if (validationResult.IsValid)
-            {
-                _writerManager.Update(writer);
-                return RedirectToAction("Index", "Dashboard");
-            }
-            else
-            {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-
-                }
-                return View();
-            }
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            values.Email = model.Mail;
+            values.ImageUrl = model.ImageUrl;
+            values.NameSurname = model.NameSurname;
+            var result = await _userManager.UpdateAsync(values);
+            return RedirectToAction("Index", "Dashboard");
 
         }
 
