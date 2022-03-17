@@ -79,6 +79,7 @@ namespace CoreProject.Controllers
             values.Email = model.Mail;
             values.ImageUrl = model.ImageUrl;
             values.NameSurname = model.NameSurname;
+            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.Password);
             var result = await _userManager.UpdateAsync(values);
             return RedirectToAction("Index", "Dashboard");
 
@@ -115,7 +116,6 @@ namespace CoreProject.Controllers
             _writerManager.Add(writer);
             return RedirectToAction("Index", "Dashboard");
         }
-
-
+        
     }
 }

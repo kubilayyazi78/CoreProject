@@ -50,28 +50,12 @@ namespace CoreProject.Controllers
             return View();
         }
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> Index(Writer writer)
-        //{
-        //    Context context = new Context();
-        //    var dataValue = context.Writers.FirstOrDefault(x => x.Mail == writer.Mail && x.Password == writer.Password);
-        //    if (dataValue != null)
-        //    {
-        //        var claims = new List<Claim>
-        //        {
-        //            new Claim(ClaimTypes.Name, writer.Mail)
-        //        };
-        //        var userIdentity = new ClaimsIdentity(claims, "a");
-        //        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(userIdentity);
-        //        await HttpContext.SignInAsync(claimsPrincipal);
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        // }
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Login");
+        }
+       
 
     }
 }
