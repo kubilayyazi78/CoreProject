@@ -6,7 +6,7 @@
 
 <h1>Blog Düzenleme Sayfası</h1>
 <br />
-@using (Html.BeginForm("EditBlog", "Blog", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Blog", FormMethod.Post))
 {
     @Html.Label("Blog Id")
     @Html.TextBoxFor(x => x.Id, new { @class = "form-control" })
