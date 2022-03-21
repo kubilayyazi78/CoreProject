@@ -20,7 +20,7 @@ namespace BusinessLayer.Concrete
 
         public void Add(Communication entity)
         {
-            throw new NotImplementedException();
+            _communicationDal.Insert(entity);
         }
 
         public void Delete(Communication entity)
@@ -45,8 +45,12 @@ namespace BusinessLayer.Concrete
 
         public List<Communication> GetInboxListByWriter(int id)
         {
-            return _communicationDal.GetListWithMessageByWriter(id);
+            return _communicationDal.GetInboxWithMessageByWriter(id);
         }
 
+        public List<Communication> GetSendBoxListByWriter(int id)
+        {
+            return _communicationDal.GetSendBoxWithMessageByWriter(id);
+        }
     }
 }

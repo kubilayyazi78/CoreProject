@@ -10,5 +10,6 @@ namespace BusinessLayer.Abstract
     public interface ICommunicationService : IGenericService<Communication>
     {
         List<Communication> GetInboxListByWriter(int id);
+        List<Communication> GetSendBoxListByWriter(int id);
     }
 }

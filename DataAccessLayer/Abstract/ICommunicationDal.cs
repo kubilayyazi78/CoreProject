@@ -9,6 +9,7 @@ namespace DataAccessLayer.Abstract
 {
     public interface ICommunicationDal : IGenericDal<Communication>
     {
-        List<Communication> GetListWithMessageByWriter(int id);
+        List<Communication> GetInboxWithMessageByWriter(int id);
+        List<Communication> GetSendBoxWithMessageByWriter(int id);
     }
 }
