@@ -32,5 +32,10 @@ namespace BusinessLayer.Concrete
         {
             throw new NotImplementedException();
         }
+
+        public List<Comment> GetListWithBlog()
+        {
+            return _commentDal.GetListWithBlog();
+        }
     }
 }
