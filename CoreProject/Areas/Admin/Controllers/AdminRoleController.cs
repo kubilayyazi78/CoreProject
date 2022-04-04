@@ -54,5 +54,44 @@ namespace CoreProject.Areas.Admin.Controllers
             }
             return View(roleViewModel);
         }
+        [HttpGet]
+        public IActionResult UpdateRole(int id)
+        {
+            var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
+            RoleUpdateViewModel roleUpdateViewModel = new RoleUpdateViewModel
+            {
+                Id = values.Id,
+                Name = values.Name
+
+            };
+            return View(roleUpdateViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateRole(RoleUpdateViewModel roleUpdateViewModel)
+        {
+            var values = _roleManager.Roles.FirstOrDefault(x => x.Id == roleUpdateViewModel.Id);
+            values.Name = roleUpdateViewModel.Name;
+            var result = await _roleManager.UpdateAsync(values);
+            if (result.Succeeded)
+            {
+
+                return RedirectToAction("Index");
+            }
+
+            return View(roleUpdateViewModel);
+        }
+
+        public async Task<IActionResult> DeleteRole(int id)
+        {
+            var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
+            var result = await _roleManager.DeleteAsync(values);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
