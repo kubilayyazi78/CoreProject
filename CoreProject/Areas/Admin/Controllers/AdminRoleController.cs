@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreProject.Areas.Admin.Models;
 using CoreProject.Models;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,12 @@ namespace CoreProject.Areas.Admin.Controllers
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AdminRoleController(RoleManager<AppRole> roleManager)
+        public AdminRoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -92,6 +95,35 @@ namespace CoreProject.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult UserRoleList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
+
+            TempData["UserId"] = user.Id;
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            List<RoleAssignViewModel> roleAssignViewModels = new List<RoleAssignViewModel>();
+
+            foreach (var item in roles)
+            {
+                RoleAssignViewModel roleAssignViewModel = new RoleAssignViewModel();
+                roleAssignViewModel.RoleId = item.Id;
+                roleAssignViewModel.Name = item.Name;
+                roleAssignViewModel.Exists = userRoles.Contains(item.Name);
+                roleAssignViewModels.Add(roleAssignViewModel);
+            }
+
+            return View(roleAssignViewModels);
         }
     }
 }
