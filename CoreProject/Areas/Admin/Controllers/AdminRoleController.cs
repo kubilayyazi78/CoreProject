@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using CoreProject.Areas.Admin.Models;
 using CoreProject.Models;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace CoreProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
