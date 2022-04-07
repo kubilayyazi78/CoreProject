@@ -125,5 +125,25 @@ namespace CoreProject.Areas.Admin.Controllers
 
             return View(roleAssignViewModels);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> roleAssignViewModels)
+        {
+            var userId = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
+            foreach (var item in roleAssignViewModels)
+            {
+                if (item.Exists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.Name);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.Name);
+                }
+            }
+
+            return RedirectToAction("UserRoleList");
+        }
     }
 }
